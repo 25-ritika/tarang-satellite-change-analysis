@@ -1,72 +1,78 @@
-# Tarang | Satellite Imagery Change Analysis
+# Tarang — Satellite Imagery Change Analysis
 
-**Exploring landscape change through multi-temporal satellite imagery.**
+**Explore landscape changes through multi-temporal satellite imagery.**
 
-Tarang is an interactive geospatial analysis prototype built with Python and Streamlit. It retrieves Sentinel-2 satellite imagery and uses spectral indices to explore changes in vegetation and built-up signals across locations and time periods.
+Tarang is an interactive geospatial analysis application built with Python and Streamlit. It retrieves Sentinel-2 satellite imagery and analyzes changes in vegetation and built-up signals across different locations and time periods.
 
-> Project focus: Earth observation · Remote sensing · Geospatial data analysis · Environmental monitoring
+[**Live Demo**](https://tarang-satellite-change-analysis-akdiayhfthoovsfyqfsbjk.streamlit.app/)**&#x20;· [GitHub Repository](https://github.com/25-ritika/tarang-satellite-change-analysis)**
 
-## Project Preview
+## Overview
 
-Tarang supports comparison of satellite imagery from different time periods and visualization of potential landscape changes.
+Urban expansion and vegetation changes are important factors in sustainable urban planning and environmental monitoring. Tarang provides an interactive workflow for exploring these changes through satellite imagery, spectral indices, and image-processing techniques.
 
-### Satellite Imagery Comparison
+The application supports location-oriented queries, satellite imagery retrieval, multi-temporal comparison, and visualization of potential changes.
+
+## Features
+
+- **Satellite imagery retrieval:** Retrieve Sentinel-2 Level-2A imagery through Sentinel Hub.
+- **Multi-temporal analysis:** Compare imagery from different time periods.
+- **Natural-language queries:** Parse supported queries describing a location and change-analysis period.
+- **NDVI analysis:** Explore vegetation-related spectral patterns.
+- **NDBI analysis:** Explore built-up-related spectral patterns.
+- **Change visualization:** Generate maps highlighting potential changes.
+- **Interactive dashboard:** Explore analysis results through a Streamlit interface.
+
+## Live Application Results
+
+The deployed application displayed the following results for a sample analysis of Kashmere Gate, Delhi, for 2020–2025.
+
+| Metric                 | Displayed result |
+| ---------------------- | ---------------: |
+| Potential changed area |        1.599 km² |
+| Study area changed     |            5.88% |
+| Change zones           |               91 |
+| Largest zone           |        1.373 km² |
+
+These figures are outputs from the current prototype. They have not been independently validated against ground-truth data and should not be interpreted as confirmed measurements of urban expansion.
+
+## Screenshots
+
+### Satellite imagery comparison
 
 | Delhi — 2020 | Delhi — 2025 |
-|---|---|
-| ![Delhi satellite imagery, 2020](assets/screenshots/delhi_2020_true_color.png) | ![Delhi satellite imagery, 2025](assets/screenshots/delhi_2025_true_color.png) |
+| ------------ | ------------ |
+|              |              |
 
-### Change Detection Visualization
+### Change detection map
 
-![Tarang change detection map](assets/screenshots/delhi_clean_change_map.png)
 
-*Visualizations are exploratory outputs from the current prototype, not independently validated land-cover classifications.*
-
-## Why Tarang?
-
-Urban expansion and changes in vegetation can affect infrastructure planning, environmental management, and sustainable development. Satellite imagery provides a way to examine these patterns over time.
-
-Tarang brings satellite data retrieval, spectral analysis, image processing, and interactive visualization into a single workflow.
-
-## Key Features
-
-- **Satellite imagery retrieval:** Access Sentinel-2 Level-2A imagery through Sentinel Hub.
-- **Multi-temporal comparison:** Examine imagery from different dates or years.
-- **Vegetation analysis:** Use the Normalized Difference Vegetation Index (NDVI).
-- **Built-up signal analysis:** Use the Normalized Difference Built-up Index (NDBI).
-- **Change visualization:** Generate maps highlighting potential changes.
-- **Interactive exploration:** Use a Streamlit interface to interact with the analysis.
-- **Location-oriented queries:** Parse supported natural-language location queries.
-
-## How It Works
-
-1. Select or query a study location.
-2. Define the area and time periods for analysis.
-3. Retrieve satellite imagery through Sentinel Hub.
-4. Process imagery and calculate relevant spectral indices.
-5. Compare index patterns and visualize potential changes.
-6. Explore the resulting maps through the application.
 
 ## Technology Stack
 
-| Technology | Purpose |
-|---|---|
-| Python | Core application and analysis |
-| Streamlit | Interactive application interface |
-| Sentinel Hub | Satellite imagery access |
-| NumPy | Numerical and array operations |
-| SciPy | Image-processing operations |
-| Pillow | Image handling |
-| Requests | HTTP requests |
-| python-dotenv | Local environment configuration |
+- **Language:** Python
+- **Interface:** Streamlit
+- **Satellite imagery:** Sentinel Hub and Sentinel-2 Level-2A
+- **Numerical analysis:** NumPy
+- **Image processing:** SciPy and Pillow
+- **HTTP requests:** Requests
+- **Configuration:** python-dotenv
 
-## Getting Started
+## How It Works
+
+1. The user enters or selects a study location and time period.
+2. The application interprets the query and prepares the satellite imagery request.
+3. Sentinel Hub provides imagery for the requested study area and dates.
+4. The application processes imagery and uses spectral indices such as NDVI and NDBI.
+5. Image-processing methods help identify and visualize potential changes.
+6. Results are presented through an interactive dashboard.
+
+## Run Locally
 
 ### Prerequisites
 
-- Python 3.10 or another Python version compatible with the project's dependencies
-- A Sentinel Hub account with suitable data access
-- Sentinel Hub credentials configured for the application
+- Python installed on your system
+- A Sentinel Hub account with appropriate data access
+- The credentials required by the application
 
 ### 1. Clone the repository
 
@@ -79,7 +85,7 @@ cd tarang-satellite-change-analysis
 
 **Windows:**
 
-```bash
+```powershell
 python -m venv .venv
 .venv\Scripts\activate
 ```
@@ -87,23 +93,16 @@ python -m venv .venv
 ### 3. Install dependencies
 
 ```bash
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 4. Configure credentials
 
-Create a local `.env` file containing the Sentinel Hub credential variables expected by the application.
+Create a local `.env` file using the exact environment-variable names expected by the application. Never upload this file or expose your credentials publicly.
 
-For example, if the application reads these variable names:
+For deployment, configure the required values through Streamlit Community Cloud Secrets.
 
-```env
-SH_CLIENT_ID=your_client_id
-SH_CLIENT_SECRET=your_client_secret
-```
-
-Ensure the variable names match the code. Never commit `.env`, access tokens, or secrets to GitHub.
-
-### 5. Launch the application
+### 5. Start the application
 
 ```bash
 streamlit run app.py
@@ -111,48 +110,44 @@ streamlit run app.py
 
 ## Understanding the Indices
 
-**Normalized Difference Vegetation Index (NDVI)**
+**Normalized Difference Vegetation Index (NDVI)** helps examine vegetation patterns using red and near-infrared reflectance.
 
-NDVI uses near-infrared and red reflectance to help examine vegetation patterns.
+**Normalized Difference Built-up Index (NDBI)** helps highlight built-up signals using shortwave-infrared and near-infrared reflectance.
 
-**Normalized Difference Built-up Index (NDBI)**
-
-NDBI uses shortwave-infrared and near-infrared reflectance to help highlight built-up signals.
-
-Neither index alone proves that an area has undergone urban development. Results must be interpreted alongside imagery quality, seasonal differences, and other evidence.
+These indices are indicators rather than definitive land-cover classifications. Their interpretation depends on image quality, seasonality, atmospheric conditions, and other factors.
 
 ## Limitations
 
-- Cloud cover, shadows, haze, and atmospheric conditions can affect imagery.
-- Seasonal and acquisition differences can influence spectral indices.
-- Threshold-based change maps may include false positives.
-- Results have not been established as ground-truth-validated measurements.
-- The current prototype uses numerical analysis and image-processing methods; it does not require a separately trained machine-learning model.
+- Clouds, haze, shadows, and image quality may affect results.
+- Differences in acquisition dates and seasons can influence index values.
+- Threshold-based change detection can produce false positives.
+- The displayed area estimates require further validation against reference data.
+- The current prototype uses numerical analysis and image-processing techniques; it does not depend on a separately trained machine-learning model.
 
-## Roadmap
+## Future Improvements
 
 - [ ] Improve cloud and cloud-shadow masking.
-- [ ] Improve consistency between images from different dates.
-- [ ] Add quantitative evaluation using reference data.
-- [ ] Improve geospatial map visualization.
-- [ ] Add automated analysis reports.
-- [ ] Expand location and date selection options.
-- [ ] Add automated tests for the processing pipeline.
+- [ ] Improve image normalization across time periods.
+- [ ] Validate change estimates against reference datasets.
+- [ ] Improve geospatial visualization and area calculations.
+- [ ] Add automated tests and error handling.
+- [ ] Support additional locations and time periods.
+- [ ] Add downloadable analysis reports.
 
 ## Contributing
 
 Contributions and suggestions are welcome.
 
 1. Fork the repository.
-2. Create a branch for your change.
-3. Test your changes locally.
-4. Submit a pull request describing your contribution.
+2. Create a feature branch.
+3. Make and test your changes.
+4. Submit a pull request describing the changes.
 
-For substantial changes, open an issue first to discuss the proposed approach.
+Please open an issue before making major changes.
 
 ## License
 
-Distributed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgements
 
