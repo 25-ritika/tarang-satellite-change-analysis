@@ -1,0 +1,7 @@
+streamlit
+numpy
+scipy
+Pillow
+requests
+python-dotenv
+sentinelhub
